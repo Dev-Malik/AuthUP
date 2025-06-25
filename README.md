@@ -4,7 +4,7 @@ A modern, full-featured authentication system built with Next.js, Better Auth, a
 
 ## 🌟 Live Demo
 
-**Try it now:** [https://auth-up-pearl.vercel.app/signup](https://auth-up-pearl.vercel.app/signup)
+**Try it now:** [https://auth-up-pearl.vercel.app/](https://auth-up-pearl.vercel.app/)
 
 Test all features including:
 - Email/Password signup and login
