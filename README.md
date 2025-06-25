@@ -2,6 +2,16 @@
 
 A modern, full-featured authentication system built with Next.js, Better Auth, and MongoDB. Features a beautiful dark purple theme and comprehensive email verification system.
 
+## 🌟 Live Demo
+
+**Try it now:** [https://auth-up-pearl.vercel.app/signup](https://auth-up-pearl.vercel.app/signup)
+
+Test all features including:
+- Email/Password signup and login
+- Google OAuth authentication
+- Email verification system
+- Password reset functionality
+
 ## ✨ Features
 
 - **User Authentication**
