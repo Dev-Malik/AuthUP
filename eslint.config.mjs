@@ -11,6 +11,9 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  {
+    ignores: ["src/generated/**/*", "src/lib/start-maildev.ts"],
+  },
 ];
 
 export default eslintConfig;

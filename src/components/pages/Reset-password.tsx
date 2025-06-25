@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import { Lock, ArrowRight, Loader2 } from "lucide-react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -31,7 +31,7 @@ import {
 } from "@/lib/schema/resetPasswordSchema";
 import { authClient } from "@/lib/auth-client";
 
-const ResetPassword = () => {
+const ResetPasswordContent = () => {
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
   if (!token) {
@@ -203,6 +203,24 @@ const ResetPassword = () => {
         </Link>
       </div>
     </div>
+  );
+};
+
+const ResetPassword = () => {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex flex-col items-center justify-center p-4">
+        <div className="w-full max-w-md">
+          <div className="animate-pulse">
+            <div className="h-8 bg-gray-700 rounded mb-4"></div>
+            <div className="h-4 bg-gray-700 rounded mb-2"></div>
+            <div className="h-4 bg-gray-700 rounded mb-4"></div>
+          </div>
+        </div>
+      </div>
+    }>
+      <ResetPasswordContent />
+    </Suspense>
   );
 };
 

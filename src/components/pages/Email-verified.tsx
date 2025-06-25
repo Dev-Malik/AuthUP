@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Loader2, AlertCircle } from "lucide-react";
 import Link from "next/link";
@@ -7,7 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
 
-const EmailVerified = () => {
+const EmailVerifiedContent = () => {
   const [status, setStatus] = useState<"loading" | "success" | "error">("loading");
   const [message, setMessage] = useState("");
   const router = useRouter();
@@ -169,6 +169,24 @@ const EmailVerified = () => {
         {renderContent()}
       </div>
     </div>
+  );
+};
+
+const EmailVerified = () => {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex flex-col items-center justify-center p-4">
+        <div className="w-full max-w-md">
+          <div className="animate-pulse">
+            <div className="h-8 bg-gray-700 rounded mb-4"></div>
+            <div className="h-4 bg-gray-700 rounded mb-2"></div>
+            <div className="h-4 bg-gray-700 rounded mb-4"></div>
+          </div>
+        </div>
+      </div>
+    }>
+      <EmailVerifiedContent />
+    </Suspense>
   );
 };
 
