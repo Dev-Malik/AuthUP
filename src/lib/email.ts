@@ -11,24 +11,28 @@ export async function sendEmail({
   subject: string;
   text: string;
 }): Promise<void> {
-  // Check whether to use real SMTP (Gmail) for production or MailDev for development.
-  // To use Gmail for sending actual emails, set the environment variable USE_REAL_SMTP to "true".
-  const useRealSMTP = process.env.USE_REAL_SMTP === "true";
+  // Use the configured EMAIL_* environment variables for production
+  // or fallback to MailDev for development
+  const hasEmailConfig = process.env.EMAIL_HOST && process.env.EMAIL_USER && process.env.EMAIL_PASS;
 
   let transporter;
   let fromAddress;
 
-  if (useRealSMTP) {
-    // Use Gmail for sending real email.
-    // Make sure to set these environment variables: GMAIL_USER and GMAIL_PASSWORD.
+  if (hasEmailConfig) {
+    // Use configured SMTP settings for production
+    const port = process.env.EMAIL_PORT ? parseInt(process.env.EMAIL_PORT, 10) : 587;
+    const isSecure = port === 465; // Use SSL for port 465, TLS for others
+    
     transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: process.env.EMAIL_HOST,
+      port: port,
+      secure: isSecure,
       auth: {
-        user: process.env.GMAIL_USER,      // Your Gmail address (e.g., myapp@gmail.com)
-        pass: process.env.GMAIL_PASSWORD,  // Your Gmail password or app password (if using 2FA)
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
     });
-    fromAddress = process.env.GMAIL_USER;
+    fromAddress = process.env.EMAIL_USER;
   } else {
     // Use MailDev for development.
     const host = process.env.SMTP_HOST || "localhost";
